@@ -18,7 +18,7 @@ class unique_ptr{
             other.ptr = nullptr;
         }
 
-        unique_ptr& operator=(unique_ptr && other){ 
+        unique_ptr<T>& operator=(unique_ptr && other){ 
             unique_ptr<T> tmp(other);
             swap(tmp);
             return *this;

@@ -11,32 +11,39 @@ class shared_ptr{
             control = new int;
             *control = 1;
         }
+
         ~shared_ptr(){
             if(!((*control)--)){
                 delete ptr;
                 delete control;
             }
         }
+
         shared_ptr(const shared_ptr& other){
             this->ptr = other.ptr;
-            this->ptr = other.control; 
+            this->control = other.control; 
+            this->control++;
         }
+
         shared_ptr(shared_ptr&& other){
             this->ptr = other.ptr;
             other.ptr = nullptr;
             this->control = other.control;
             other.control = nullptr;
         }
-        void  swap(shared_ptr& other){
+
+        void swap(shared_ptr& other){
             std::swap(this->ptr, other.ptr);
             std::swap(this->control, other.control);
         }
-        unique_ptr& operator=(shared_ptr&& other){
+
+        unique_pt<T>r& operator=(shared_ptr&& other){
             unique_ptr<T> tmp(other);
             swap(*this,tmp);
             return *this; 
         }
-        unique_ptr& operator=(const shared_ptr& other){
+
+        unique_ptr<T>& operator=(const shared_ptr& other){
             if(ptr && control){
                 delete ptr;
                 delete control;
@@ -45,16 +52,18 @@ class shared_ptr{
             swap(*this,tmp);
             return *this;
         }
+
         T* get(){
             return ptr;
         }
-T* release(){
-    T* tmp = ptr;
-    delete ptr;
-    return tmp;
-}
 
-        
+        T* release(){
+            T* tmp = ptr;
+            delete ptr;
+            return tmp;
+        }
+
+
 };
 
 int main(){

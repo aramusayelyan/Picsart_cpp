@@ -64,7 +64,8 @@ public:
 
     intrusive_ptr &operator=(intrusive_ptr &&other)
     {
-        swap(other);
+        intrusive_ptr<T> tmp(other);
+        swap(tmp);
         return *this;
     }
 
@@ -73,17 +74,19 @@ public:
         std::swap(ob, other.ob);
     }
 
-    T* get() {
+    T *get()
+    {
         return ob->ptr;
     }
 
-    T operator*(){
+    T operator*()
+    {
         return *(ob->ptr);
-    } 
-    T* operator->(){
+    }
+    T *operator->()
+    {
         return ob->ptr;
-    } 
+    }
 };
 
-
-int main(){}
+int main() {}
